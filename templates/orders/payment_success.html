@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if order.paid is True %}
+<div class="alert alert-success" role="alert">
+    <h1>Payment Successfull</h1>
+    Order <b>{{order.order_id}} has been paid successfully.</b>
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <h1>Payment Failed</h1>
+    Order <b>{{order.order_id}} Failed paying.</b>
+</div>
+{% endif %}
+{% endblock %}

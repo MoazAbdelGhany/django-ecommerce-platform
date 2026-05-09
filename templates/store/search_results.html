@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if query %}
+<h1>Searching for "{{ query }}"</h1>
+{% with results.count as result_count %}
+<p>Results: {{ result_count }}</p>
+{% endwith %}
+{% endif %}
+{% for result in results %}
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="{{ result.image.url }}" class="img-fluid rounded-start" alt="{{ result.name }}">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ result.name }}</h5>
+                <p class="card-text">{{ result.description }}</p>
+                <p class="card-text"><small class="text-muted">Price: ${{ result.price }}</small></p>
+                <a href="{{result.get_product_url}}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<p>No results found for "{{ query }}"</p>
+{% endfor %}
+{% endblock %}

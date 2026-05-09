@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Order
+{% endblock title %}
+{% block content %}
+<br><br><br>
+<h2 class="text-center">Checkout</h2>
+
+<div class="container justify-content-center">
+    <p class="n"><b>Your Order</b></p>
+    <ul>
+        {% for item in cart %}
+        <li>
+            {{ item.quantity }}x {{ item.product.name }}
+            <span>
+                , $ {{ item.total_price }}
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if success %}
+    <div class="alert alert-success" role="alert">
+            <p>Your Order has been successfully</p>
+            <p class="n"><b>Order-ID: </b>{{order.order_id}}</p>
+    </div>
+    {% endif %}
+    {% if cart.get_total_price %}
+    <p>Total: ${{ cart.get_total_price_with_discount_and_tax|floatformat:2 }}</p>
+    {% endif %}
+</div>
+<br>
+<div class="container  justify-content-center">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <p><input type="submit" value="Place Order" class="btn btn-primary"></p>
+    </form>
+</div>
+
+{% endblock content %} 
